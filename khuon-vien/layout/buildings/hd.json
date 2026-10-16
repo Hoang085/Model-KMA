@@ -1,0 +1,226 @@
+{
+ "_note": "Cụm Tòa điều hành 14 tầng (HĐ) + khối nối + Hội trường. Đơn vị mét. u tính từ mép TRÁI khi đứng ngoài nhìn vào mặt đó; z tính từ mặt sân.",
+ "id": "hd",
+ "tower": {
+  "floors": 14,
+  "levels": {
+   "plinth": 2.4,
+   "ground_h": 4.2,
+   "f2_h": 4.0,
+   "f3_h": 4.0,
+   "typical_h": 3.6
+  },
+  "crown_h": 4.0,
+  "south": {
+   "photo": "reference/hd/hd_mat_dong_sanh.png",
+   "title": "Mặt Nam – sảnh chính (cầu thang lớn, cột cờ)",
+   "width": 43.8,
+   "fin_zone": [
+    0.0,
+    9.0
+   ],
+   "fin_step": 1.5,
+   "ribbon_zone": [
+    9.0,
+    30.0
+   ],
+   "grid_block": [
+    30.0,
+    43.8
+   ],
+   "grid_frame_cols": [
+    30.0,
+    36.9,
+    43.8
+   ],
+   "lobby": [
+    14.0,
+    26.0
+   ],
+   "canopy": {
+    "u0": 13.0,
+    "u1": 27.0,
+    "z": 6.8,
+    "thick": 1.2,
+    "depth": 8.5,
+    "columns": [
+     14.3,
+     25.7
+    ]
+   },
+   "office_text": {
+    "text": "VĂN PHÒNG TUYỂN SINH",
+    "u0": 37.6,
+    "u1": 43.0,
+    "z": 5.6,
+    "h": 0.45
+   },
+   "portal": {
+    "u0": 17.5,
+    "u1": 22.5,
+    "h": 3.6
+   },
+   "urns": [
+    17.0,
+    23.0
+   ],
+   "semi_basement_windows": true,
+   "entry": {
+    "tier1_z": 1.2,
+    "tier2_z": 2.4,
+    "terrace": {
+     "u0": 15.0,
+     "u1": 25.0,
+     "w0": 0.0,
+     "w1": 1.8
+    },
+    "upper_stair": {
+     "u0": 16.0,
+     "u1": 24.0,
+     "risers": 7,
+     "tread": 0.3
+    },
+    "tier1": {
+     "u0": 13.0,
+     "u1": 27.0,
+     "depth": 3.5
+    },
+    "lower_stair": {
+     "u0": 16.0,
+     "u1": 24.0,
+     "risers": 8,
+     "tread": 0.3
+    },
+    "wall_h": 0.9,
+    "cap": "#8a4a3a",
+    "_rule": "2 nấc: nấc 1 (+1,2) dưới mái đón, 2 dốc xe ngắn cong hai bên; cầu thang giữa lên nấc 1, 7 bậc lên nấc 2 (+2,4). Không cây.",
+    "ramps": {
+     "lane_w": 4.0,
+     "len": 8.0,
+     "segments": 20,
+     "_rule": "Mỗi bên một làn xe cong 1/4 vòng: ra khỏi mép nấc 1 thì vòng RA NGOÀI (về phía sân), xuống tới đất; tường thấp hai mép làn"
+    }
+   }
+  },
+  "east": {
+   "title": "Mặt Đông – khung xám, biển HĐ",
+   "width": 22.9,
+   "frame_cols": [
+    0.0,
+    4.58,
+    9.16,
+    13.74,
+    18.32,
+    22.9
+   ],
+   "hd_sign": {
+    "text": "HĐ",
+    "u": 8.4,
+    "z": 13.0,
+    "w": 0.9,
+    "h": 0.55
+   },
+   "windows_per_floor": 7
+  },
+  "north": {
+   "photo": "reference/hd/hd_mat_bac.png",
+   "title": "Mặt Bắc tháp (phía Hội trường)",
+   "width": 43.8,
+   "fin_zone_from_right": 9.0,
+   "_rule": "Dải kính chạy ngang suốt mỗi tầng (như phần giữa mặt Nam), đầu Tây có lam đứng xám; khối nối gắn ở đầu Đông"
+  },
+  "west": {
+   "title": "Mặt Tây tháp",
+   "based_on": "east",
+   "_rule": "Như phần tháp ở mặt Đông: khung xám 3 tầng ở đế, lưới cửa sổ 7 ô/tầng, lam đứng; không biển HĐ"
+  }
+ },
+ "link": {
+  "width": 7.0,
+  "height": 11.5,
+  "vent": [
+   1.5,
+   5.0,
+   4.0,
+   9.0
+  ],
+  "door": [
+   2.0,
+   4.0
+  ]
+ },
+ "hall": {
+  "height": 10.5,
+  "front": {
+   "photo": "reference/hoi_truong/hd_va_hoi_truong_mat_dong.png",
+   "width": 18.0,
+   "pilasters": [
+    0.0,
+    4.0,
+    14.0,
+    18.0
+   ],
+   "stairs": {
+    "u0": 5.5,
+    "u1": 12.5,
+    "z_top": 3.2,
+    "risers": 12,
+    "depth": 6.0
+   },
+   "canopy": {
+    "u0": 3.0,
+    "u1": 16.0,
+    "z": 6.8,
+    "depth": 4.5,
+    "columns": false
+   },
+   "pediment": {
+    "u0": 4.0,
+    "u1": 14.0,
+    "z0": 10.5,
+    "apex": 13.6
+   },
+   "title_text": {
+    "text": "HỘI TRƯỜNG",
+    "z": 11.4,
+    "h": 0.6
+   }
+  },
+  "north": {
+   "photo": "reference/hoi_truong/hoi_truong_mat_ben.png",
+   "title": "Mặt Bắc Hội trường (mặt bên, cạnh sân thể thao)",
+   "width": 40.0,
+   "pilaster_step": 5.0
+  },
+  "south": {
+   "_rule": "Gắn với khối nối / tháp – không vẽ mặt đứng; trong 3D là tường kem trơn"
+  },
+  "west": {
+   "title": "Mặt Tây Hội trường",
+   "width": 18.0,
+   "_rule": "Tường đặc (người dùng yêu cầu)"
+  }
+ },
+ "colors": {
+  "cream": "#e3d3a8",
+  "cream_dark": "#c9b88d",
+  "grey_frame": "#6f7377",
+  "fin": "#5d5650",
+  "glass": "#3f5560",
+  "glass_light": "#8fb0bd",
+  "white_panel": "#eceae4",
+  "gold": "#c8a14a",
+  "red_text": "#c0392b",
+  "steps": "#8b8f92",
+  "plant": "#4f7d3a",
+  "ramp": "#cfcfca"
+ },
+ "open_questions": [],
+ "decisions": [
+  "Tháp 14 tầng (3 đế + 11), nền sảnh 2,4 m (đã xác nhận)",
+  "Khối VĂN PHÒNG TUYỂN SINH ở đầu Đông mặt Nam (đã xác nhận)",
+  "Mặt Bắc tháp theo ảnh hd_mat_bac.png; mặt Tây tháp như mặt Đông; mặt Nam Hội trường bỏ qua (gắn tháp); mặt Tây Hội trường là tường đặc",
+  "Bỏ 2 cột giàn thép đỡ mái đón Hội trường (người dùng)",
+  "Sảnh tháp 2 nấc: nấc 1 +1,2 m; 2 làn xe cong 1/4 vòng hướng ra ngoài sân (~8 m), tường thấp hai mép; cầu thang giữa; nấc 2 +2,4 m ở cửa; không cây (người dùng)"
+ ]
+}

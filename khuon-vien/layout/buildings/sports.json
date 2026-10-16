@@ -1,0 +1,153 @@
+{
+ "_note": "Khu giáo dục thể chất: 2 sân bóng nhỏ nằm dọc + đường chạy bao quanh, sân bóng rổ, sân bóng chuyền, khán đài phía Bắc hướng vào sân bóng. Vị trí theo vệ tinh (khu GDTC), kích thước theo chuẩn sân. Đơn vị mét, toạ độ theo campus_layout.json.",
+ "id": "sports",
+ "base": [
+  -12.0,
+  154.3,
+  80.9,
+  227.1
+ ],
+ "track": {
+  "rect": [
+   8.0,
+   156.0,
+   78.0,
+   214.0
+  ],
+  "corner_r": 12.0,
+  "lanes": 4,
+  "lane_w": 1.22,
+  "start_x": 43.0
+ },
+ "field": {
+  "_rule": "2 sân bóng 5–7 người nằm dọc (trục Bắc–Nam), đặt cạnh nhau trong lòng đường chạy",
+  "rects": [
+   [
+    14.5,
+    164.0,
+    41.5,
+    206.0
+   ],
+   [
+    44.5,
+    164.0,
+    71.5,
+    206.0
+   ]
+  ],
+  "stripe_w": 4.2,
+  "penalty": [
+   6.0,
+   12.0
+  ],
+  "center_r": 3.0,
+  "goal": [
+   3.0,
+   2.0,
+   1.2
+  ]
+ },
+ "basketball": {
+  "surface": [
+   -9.0,
+   185.7,
+   8.0,
+   213.7
+  ],
+  "court": [
+   15.0,
+   28.0
+  ],
+  "three_r": 6.75,
+  "key": [
+   5.8,
+   4.9
+  ],
+  "circle_r": 1.8
+ },
+ "volleyball": {
+  "surface": [
+   -8.6,
+   160.0,
+   2.6,
+   180.0
+  ],
+  "court": [
+   9.0,
+   18.0
+  ],
+  "attack": 3.0,
+  "net_h": 2.43
+ },
+ "stand": {
+  "rect": [
+   30.0,
+   215.5,
+   58.0,
+   223.5
+  ],
+  "faces": "south",
+  "front_h": 1.0,
+  "tiers": 6,
+  "tier_h": 0.45,
+  "tier_d": 0.8,
+  "aisles": [
+   36.0,
+   44.0,
+   52.0
+  ],
+  "aisle_w": 1.2,
+  "roof_back": 7.6,
+  "roof_front": 6.9,
+  "roof_over": 1.0,
+  "columns_step": 5.6
+ },
+ "lights": {
+  "poles": [
+   [
+    5.0,
+    155.0
+   ],
+   [
+    81.0,
+    155.0
+   ],
+   [
+    5.0,
+    215.0
+   ],
+   [
+    81.0,
+    215.0
+   ]
+  ],
+  "h": 15.0
+ },
+ "colors": {
+  "base": "#b9b6ae",
+  "track": "#b5503f",
+  "line": "#f4f4f2",
+  "turf_a": "#3f8a45",
+  "turf_b": "#357a3c",
+  "apron": "#2f6b36",
+  "basket": "#3fa39a",
+  "basket_key": "#2f7f8f",
+  "volley": "#2f5f8f",
+  "volley_out": "#4a7f6a",
+  "concrete": "#c9c6bd",
+  "seat_a": "#2b5fa8",
+  "seat_b": "#e6c33a",
+  "steel": "#8a8d8f",
+  "roof": "#d9dcde",
+  "post": "#f4f4f2",
+  "net": "#1d1f20",
+  "board": "#f4f4f2",
+  "rim": "#e05a2a"
+ },
+ "open_questions": [],
+ "decisions": [
+  "Bỏ TB1, Phòng y tế, Nhà xe (người dùng)",
+  "Khu thể thao thiết kế theo vệ tinh + kích thước chuẩn, không có ảnh",
+  "Sân bóng chia 2 sân nhỏ nằm dọc Bắc–Nam, mỗi sân 27 × 42 m (người dùng)"
+ ]
+}

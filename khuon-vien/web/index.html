@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Khuôn viên KMA 3D</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap&subset=vietnamese">
+<script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
+<style>
+/* Layout: drawing-sheet — large viewer as the "sheet", a narrow title-block column on the right (stacks under on phones) */
+:root {
+  --bg: #eef1f4;
+  --sheet: #ffffff;
+  --ink: #1d2630;
+  --muted: #5d6a77;
+  --line: #d3dae1;
+  --accent: #3f6f96;
+  --accent-ink: #ffffff;
+  --stage-top: #c9d6e2;
+  --stage-bottom: #eef0ef;
+  --chip: #e4e9ee;
+  --f-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --f-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141a20; --sheet: #1c242c; --ink: #e3e9ee; --muted: #9aa8b5; --line: #2e3a45;
+    --accent: #7fb0d8; --accent-ink: #0f1820; --stage-top: #2a3a4a; --stage-bottom: #1a2129; --chip: #26313b;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141a20; --sheet: #1c242c; --ink: #e3e9ee; --muted: #9aa8b5; --line: #2e3a45;
+  --accent: #7fb0d8; --accent-ink: #0f1820; --stage-top: #2a3a4a; --stage-bottom: #1a2129; --chip: #26313b;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font: 15px/1.55 var(--f-body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 20px 40px;
+}
+.wrap { max-width: 1280px; margin: 0 auto; display: grid; gap: 16px; }
+header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 20px; }
+h1 { font: 700 clamp(28px, 4vw, 40px)/1 var(--f-display); letter-spacing: .01em; margin: 0; text-wrap: balance; }
+h1 small { font-weight: 500; color: var(--muted); font-size: .55em; letter-spacing: .06em; text-transform: uppercase; margin-left: 10px; }
+.sub { color: var(--muted); margin: 0; font-size: 14px; }
+.grid { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 16px; align-items: start; }
+@media (max-width: 860px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+
+.stage { position: relative; background: var(--sheet); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+model-viewer {
+  width: 100%; height: min(72vh, 680px); min-height: 380px; display: block;
+  background: linear-gradient(var(--stage-top), var(--stage-bottom));
+  --poster-color: transparent;
+}
+.models { border-top: 0; padding: 0; }
+.views { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px; border-top: 1px solid var(--line); }
+.views button, .tog {
+  font: 500 13px/1 var(--f-body); color: var(--ink); background: var(--chip);
+  border: 1px solid transparent; border-radius: 4px; padding: 8px 11px; cursor: pointer;
+}
+.views button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+.views button:focus-visible, .tog:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.hint {
+  position: absolute; left: 12px; top: 12px; font: 12px/1.4 var(--f-mono); color: var(--muted);
+  background: color-mix(in srgb, var(--sheet) 82%, transparent); padding: 6px 8px; border-radius: 4px; pointer-events: none;
+}
+.loading[hidden] { display: none; }
+.loading { position: absolute; inset: 0; display: grid; place-items: center; font: 500 14px var(--f-mono); color: var(--muted); pointer-events: none; }
+
+aside { background: var(--sheet); border: 1px solid var(--line); border-radius: 6px; display: grid; }
+aside section { padding: 14px 16px; border-bottom: 1px solid var(--line); display: grid; gap: 8px; min-width: 0; }
+aside section:last-child { border-bottom: 0; }
+.label { font: 600 12px/1 var(--f-display); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; }
+dt { color: var(--muted); font-size: 13px; }
+dd { margin: 0; text-align: right; white-space: nowrap; font: 500 13px var(--f-mono); font-variant-numeric: tabular-nums; }
+.row { display: flex; align-items: center; gap: 10px; }
+.row input[type="range"] { flex: 1; min-width: 0; accent-color: var(--accent); }
+.row output { font: 12px var(--f-mono); width: 3.2em; text-align: right; color: var(--muted); }
+.swatches { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 10px; font-size: 13px; }
+.sw { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.sw i { width: 14px; height: 14px; border-radius: 2px; flex: none; border: 1px solid var(--line); }
+.toggles { display: flex; flex-wrap: wrap; gap: 6px; }
+.tog[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); }
+.note { font-size: 13px; color: var(--muted); margin: 0; }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+[hidden] { display: none !important; }
+body { margin: 0; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <h1 id="ttl">TA1 <small>Học viện Kỹ thuật Mật mã · bản thử 3D</small></h1>
+    <p class="sub">Model dựng bằng code + Blender, có texture · dùng cho game Unity góc nhìn thứ 3</p>
+  </header>
+
+  <div class="models views" role="group" aria-label="Chọn model" id="models">
+    <button type="button" data-model="ta1" aria-pressed="true">TA1</button>
+    <button type="button" data-model="tb2" aria-pressed="false">TB2 · Thư viện</button>
+    <button type="button" data-model="hd" aria-pressed="false">HĐ + Hội trường</button>
+    <button type="button" data-model="nha_an" aria-pressed="false">Nhà ăn hệ quân</button>
+    <button type="button" data-model="ta23" aria-pressed="false">TA2 + TA3</button>
+    <button type="button" data-model="canteen" aria-pressed="false">Canteen + tennis</button>
+    <button type="button" data-model="ta4" aria-pressed="false">TA4 (TB5)</button>
+    <button type="button" data-model="sports" aria-pressed="false">Khu thể thao</button>
+    <button type="button" data-model="gate" aria-pressed="false">Cổng, tường, bồn nước</button>
+    <button type="button" data-model="all" aria-pressed="false">Toàn bộ (đúng vị trí)</button>
+  </div>
+
+  <div class="grid">
+    <div class="stage">
+      <model-viewer id="mv" src="../export/TA1.glb" alt="Model 3D"
+        camera-controls touch-action="none" shadow-intensity="1" shadow-softness="0.8"
+        exposure="0.8" environment-image="neutral" tone-mapping="aces" interaction-prompt="none"
+        camera-orbit="135deg 78deg 100m" field-of-view="35deg"
+        min-camera-orbit="auto 0deg 2m" max-camera-orbit="auto 180deg 600m"
+        interpolation-decay="120">
+        <div class="loading" slot="progress-bar" id="loading">Đang tải model…</div>
+      </model-viewer>
+      <div class="hint">Kéo: xoay · Cuộn/chụm: zoom · Chuột phải/2 ngón: dịch</div>
+      <div class="views" role="group" aria-label="Góc nhìn" id="views"></div>
+    </div>
+
+    <aside>
+      <section>
+        <span class="label">Thông số</span>
+        <dl id="stats"></dl>
+      </section>
+      <section>
+        <span class="label">Ánh sáng</span>
+        <div class="row">
+          <label for="exp" class="note" style="min-width:4.5em">Độ sáng</label>
+          <input id="exp" type="range" min="0.3" max="1.6" step="0.05" value="0.8">
+          <output id="expOut">0.80</output>
+        </div>
+        <div class="row">
+          <label for="sun" class="note" style="min-width:4.5em">Bóng đổ</label>
+          <input id="sun" type="range" min="0" max="2" step="0.1" value="1">
+          <output id="sunOut">1.0</output>
+        </div>
+        <div class="toggles">
+          <button type="button" class="tog" id="rot" aria-pressed="false">Tự xoay</button>
+          <button type="button" class="tog" id="env" aria-pressed="false">Ánh sáng ngoài trời</button>
+        </div>
+      </section>
+      <section>
+        <span class="label">Vật liệu</span>
+        <div class="swatches" id="swatches"></div>
+      </section>
+      <section>
+        <span class="label">Thử gì</span>
+        <p class="note" id="tips"></p>
+      </section>
+    </aside>
+  </div>
+</div>
+
+<script>
+(function () {
+  // glTF axes: +Z = south (towards the gate), -Z = north, +X = east. theta 0 = camera on the south side.
+  const MODELS = {
+    ta1: {
+      title: "TA1", src: "../export/TA1.glb", size: "4,2 MB",
+      stats: [["Kích thước", "34,8 × 28,0 m"], ["Số tầng", "10"], ["Cao tới đỉnh", "38,7 m"], ["Tầng 1 / điển hình", "4,5 / 3,6 m"], ["Số mặt (faces)", "22 259"], ["File web", "GLB 4,2 MB"]],
+      swatches: [["#97a2ad", "Tường sơn"], ["#b4bdc6", "Cột, lam đứng"], ["#6b737b", "Lam kim loại"], ["#22313d", "Kính"], ["#b8644c", "Gạch lát"], ["#8b8f92", "Đá bậc"]],
+      tips: "Bấm \u201cTầm mắt người\u201d để xem từ độ cao camera game. Xoay sang mặt giáp cổng để xem ban công lõi, cầu thang ngoài và biển TA1.",
+      views: [["Toàn cảnh", "135deg 78deg 100m", "auto auto auto"], ["Mặt sảnh chính", "180deg 82deg 70m", "auto 14m auto"],
+              ["Mặt giáp cổng", "90deg 82deg 62m", "auto 14m auto"], ["Mặt Nam", "0deg 82deg 70m", "auto 14m auto"],
+              ["Mặt Tây", "270deg 82deg 62m", "auto 14m auto"], ["Tầm mắt người", "200deg 88deg 24m", "auto 6m auto", "60deg"],
+              ["Trên cao", "140deg 25deg 95m", "auto auto auto"], ["Nhìn từ dưới lên", "160deg 115deg 45m", "auto 10m auto", "50deg"]]
+    },
+    tb2: {
+      title: "TB2 · Thư viện", src: "../export/TB2.glb", size: "8,7 MB",
+      stats: [["Kích thước", "48,6 × 19,5 m"], ["Số tầng", "20 (2 đế + 18 tháp)"], ["Cao tới đỉnh", "≈ 72 m"], ["Tầng 1 / 2 / điển hình", "4,6 / 4,0 / 3,3 m"], ["Số mặt (faces)", "59 178"], ["File web", "GLB 8,7 MB"]],
+      swatches: [["#e6d6ae", "Sơn kem"], ["#a6aeb9", "Sơn xám xanh"], ["#5b4b45", "Gạch ốp đế"], ["#3a3f45", "Khung cửa dải kem"], ["#c8a14a", "Chữ vàng"], ["#b3261e", "Băng rôn"]],
+      tips: "Bấm \u201cMặt Tây (LIBRARY)\u201d để xem mặt hướng ra bồn nước, \u201cSảnh thư viện\u201d để xem chữ THƯ VIỆN và mái đón.",
+      views: [["Toàn cảnh", "225deg 75deg 150m", "auto auto auto"], ["Sảnh thư viện", "185deg 84deg 70m", "auto 18m auto"],
+              ["Mặt Tây (LIBRARY)", "270deg 84deg 60m", "auto 18m auto"], ["Mặt Nam", "0deg 82deg 110m", "auto 32m auto"],
+              ["Mặt Đông", "90deg 82deg 90m", "auto 32m auto"], ["Tầm mắt người", "215deg 89deg 28m", "auto 8m auto", "65deg"],
+              ["Trên cao", "200deg 25deg 160m", "auto auto auto"], ["Nhìn từ dưới lên", "250deg 112deg 50m", "auto 14m auto", "55deg"]]
+    },
+    hd: {
+      title: "Tòa điều hành + Hội trường", src: "../export/HD.glb", size: "4,1 MB",
+      stats: [["Tháp", "43,8 × 22,9 m · 14 tầng"], ["Cao tới khung đỉnh", "≈ 58 m"], ["Sảnh Nam", "2 nấc: +1,2 (2 làn xe vòng ra sân) và +2,4"], ["Hội trường", "18 × 40 m, cao 10,5 m"], ["Số mặt (faces)", "25 573"], ["File web", "GLB 4,1 MB"]],
+      swatches: [["#e3d3a8", "Sơn kem"], ["#6f7377", "Khung xám"], ["#5d5650", "Lam nâu xám"], ["#4f6a77", "Kính"], ["#c8a14a", "Chữ vàng"], ["#8a4a3a", "Ốp tường má"]],
+      tips: "Bấm \u201cSảnh chính (Nam)\u201d để xem cầu thang cao 15 bậc và mái đón; \u201cMặt Đông\u201d để xem tháp, khối nối và Hội trường.",
+      views: [["Toàn cảnh", "200deg 72deg 150m", "auto auto auto"], ["Sảnh chính (Nam)", "5deg 84deg 55m", "auto 12m auto"],
+              ["Mặt Đông", "90deg 82deg 110m", "auto 25m auto"], ["Mặt Bắc", "180deg 80deg 120m", "auto 25m auto"],
+              ["Mặt Tây", "270deg 82deg 110m", "auto 25m auto"], ["Tầm mắt người (sảnh)", "10deg 92deg 30m", "auto 6m auto", "65deg"],
+              ["Hội trường", "120deg 84deg 45m", "auto 6m auto", "50deg"], ["Trên cao", "210deg 28deg 170m", "auto auto auto"]]
+    },
+    nha_an: {
+      title: "Nhà ăn hệ quân (TB3)", src: "../export/NHA_AN.glb", size: "1,5 MB",
+      stats: [["Kích thước", "27,1 × 38,5 m"], ["Khối trước", "2 tầng, +9,6 m"], ["Khối kính", "Ø 8 m, +10,4 m"], ["Nhà ăn", "Mái 2 mái, nóc +10,5 m"], ["Số mặt (faces)", "3 996"], ["File web", "GLB 1,5 MB"]],
+      swatches: [["#e6dbb0", "Sơn kem"], ["#6d7378", "Ốp xám"], ["#2a403d", "Kính khối tròn"], ["#eeebe5", "Cột đá trắng"], ["#7a3b32", "Bậc đá đỏ"], ["#9e3b32", "Mái tôn đỏ"]],
+      tips: "Bấm \u201cSảnh chính (Nam)\u201d để xem sảnh 4 cột và trán tam giác; \u201cMặt Tây (TB3)\u201d để xem khối kính tròn và cầu thang ngoài ôm quanh.",
+      views: [["Toàn cảnh", "315deg 70deg 75m", "auto auto auto"], ["Sảnh chính (Nam)", "0deg 86deg 40m", "auto 5m auto"],
+              ["Mặt Tây (TB3)", "270deg 86deg 50m", "auto 5m auto"], ["Khối kính + cầu thang", "300deg 88deg 26m", "auto 4m auto", "55deg"],
+              ["Tầm mắt người", "10deg 92deg 22m", "auto 3m auto", "65deg"], ["Trên cao", "330deg 30deg 85m", "auto auto auto"]]
+    },
+    ta23: {
+      title: "TA2 + TA3", src: "../export/TA23.glb", size: "1,8 MB",
+      stats: [["TA2", "12 × 67,7 m · 5 tầng"], ["TA3", "12,5 × 25,2 m · 7 tầng"], ["Mái", "TA2 +19,1 · TA3 +23,8 m"], ["Mặt đã có ảnh", "Mặt Đông"], ["Số mặt (faces)", "7 753"], ["File web", "GLB 1,8 MB"]],
+      swatches: [["#5f8796", "Dải kính TA2"], ["#c9ced2", "Ốp bạc"], ["#a79a96", "Trụ đá tầng 1"], ["#6e6a64", "Lam TA3"], ["#c8a14a", "Chữ vàng"], ["#9a5a48", "Mái lát gạch"]],
+      tips: "Bấm \u201cMặt sân (Đông)\u201d để xem dải kính TA2 và chữ DẠY TỐT - HỌC TỐT; \u201cTA3 từ sảnh HĐ\u201d để xem mặt bọc lam như ảnh.",
+      views: [["Toàn cảnh", "70deg 72deg 140m", "auto auto auto"], ["Mặt sân (Đông)", "90deg 86deg 110m", "auto 10m auto"],
+              ["TA3 từ sảnh HĐ", "60deg 90deg 45m", "auto 10m -42m", "60deg"], ["Đầu Nam TA2", "15deg 84deg 55m", "auto 10m auto"],
+              ["Tầm mắt người", "100deg 92deg 30m", "auto 4m auto", "65deg"], ["Trên cao", "80deg 25deg 150m", "auto auto auto"]]
+    },
+    canteen: {
+      title: "Canteen + sân tennis", src: "../export/campus_canteen_tennis_nha_an.glb", size: "2,3 MB",
+      stats: [["Canteen", "24,3 × 14,3 m · 3 tầng"], ["Cao", "diềm +11,1 · nóc +14,6 m"], ["Sân tennis", "30,9 × 18 m, rào 4 m"], ["Kèm", "Nhà ăn (mái 2 mái mới)"], ["Số mặt (faces)", "≈ 8 500"], ["File web", "GLB 2,3 MB"]],
+      swatches: [["#ecd77a", "Sơn vàng"], ["#7d8084", "Dải đá xám"], ["#2f6b45", "Lan can xanh"], ["#a8483a", "Mái ngói"], ["#3f7a62", "Nền sân"], ["#b04a40", "Viền sân"]],
+      tips: "Bấm \u201cMặt vòm cuốn\u201d để xem Canteen; \u201cTừ bãi xe nhìn sân\u201d để xem sân tennis và đầu hồi Nhà ăn như ảnh.",
+      views: [["Toàn cảnh", "300deg 65deg 135m", "auto auto auto"], ["Mặt vòm cuốn", "330deg 86deg 45m", "auto 6m auto"],
+              ["Từ bãi xe nhìn sân", "270deg 88deg 40m", "auto 3m auto", "60deg"], ["Sân tennis", "0deg 50deg 45m", "auto 0m auto"],
+              ["Tầm mắt người", "320deg 92deg 25m", "auto 2m auto", "65deg"], ["Trên cao", "320deg 25deg 110m", "auto auto auto"]]
+    },
+    ta4: {
+      title: "TA4 (biển TB5)", src: "../export/TA4.glb", size: "1,0 MB",
+      stats: [["Kích thước", "35,7 × 15,1 m"], ["Số tầng", "5"], ["Mái", "+17,6 · nóc mái tôn +23,5 m"], ["Tháp thang thép", "đầu Tây, giàn tới +24 m"], ["Số mặt (faces)", "5 592"], ["File web", "GLB 1,0 MB"]],
+      swatches: [["#d9d4c6", "Bê tông"], ["#3e4247", "Lam ngang"], ["#4f8f7a", "Kính xanh"], ["#c8643c", "Mái tôn cam"], ["#6f7275", "Thang thép"], ["#6b3a2a", "Cửa gỗ"]],
+      tips: "Bấm \u201cGóc như ảnh\u201d để xem tháp thang thép, hành lang bọc lam và khối cong; \u201cTrên cao\u201d để xem mái tôn và đầu hồi kính xanh.",
+      views: [["Toàn cảnh", "330deg 72deg 95m", "auto auto auto"], ["Mặt Nam", "0deg 86deg 70m", "auto 10m auto"],
+              ["Góc như ảnh", "330deg 88deg 45m", "auto 9m auto", "55deg"], ["Tháp thang thép", "290deg 86deg 30m", "-18m 10m auto", "55deg"],
+              ["Tầm mắt người", "345deg 92deg 28m", "auto 4m auto", "65deg"], ["Trên cao", "320deg 30deg 100m", "auto auto auto"]]
+    },
+    sports: {
+      title: "Khu thể thao", src: "../export/SPORTS.glb", size: "0,4 MB",
+      stats: [["Sân bóng đá", "2 sân dọc, 27 × 42 m"], ["Đường chạy", "4 làn, 70 × 58 m"], ["Bóng rổ", "28 × 15 m"], ["Bóng chuyền", "18 × 9 m"], ["Khán đài", "28 m, 6 bậc, mái che"], ["File web", "GLB 0,4 MB"]],
+      swatches: [["#3f8a45", "Cỏ nhân tạo"], ["#b5503f", "Đường chạy"], ["#3fa39a", "Sân bóng rổ"], ["#2f5f8f", "Sân bóng chuyền"], ["#2b5fa8", "Ghế khán đài"], ["#d9dcde", "Mái tôn"]],
+      tips: "Bấm \u201cTừ giữa sân\u201d để nhìn về khán đài; \u201cTừ khán đài\u201d để xem góc khán giả nhìn xuống sân bóng.",
+      views: [["Toàn cảnh", "200deg 60deg 150m", "auto auto auto"], ["Từ giữa sân", "180deg 92deg 25m", "auto 2m auto", "65deg"],
+              ["Từ khán đài", "0deg 80deg 20m", "auto 3m auto", "65deg"], ["Bóng rổ + chuyền", "100deg 75deg 50m", "-38m 1m auto", "50deg"],
+              ["Trên cao", "180deg 15deg 160m", "auto auto auto"]]
+    },
+    gate: {
+      title: "Cổng, nhà bảo vệ, tường, bồn nước", src: "../export/campus_gate_fountain.glb", size: "3,5 MB",
+      stats: [["Cổng", "3 cửa vòm, 6 cánh mở được"], ["Nhà bảo vệ", "khối dưới mái + khối mái bằng 3,5 m vào sân"], ["Lối xe", "2 barie, camera, gờ giảm tốc"], ["Tường bao", "≈ 760 m, cao 2,4 m, cột mỗi 3,6 m"], ["Bồn nước", "Ø 5 m, cao 0,65 m"], ["File web", "GLB 3,5 MB"]],
+      swatches: [["#D6BD8C", "Sơn kem"], ["#EEEBE3", "Diềm trắng"], ["#A63E2E", "Ngói đỏ"], ["#161616", "Cổng sắt"], ["#C8262A", "Thanh barie"], ["#8c8a84", "Chân bồn đá"]],
+      tips: "Bấm \u201cNhà bảo vệ\u201d để xem khối mái bằng, mái kính, barie; \u201cTường bao\u201d để xem tường chạy quanh khuôn viên.",
+      views: [["Toàn cảnh cổng", "20deg 78deg 45m", "auto 3m auto"], ["Từ ngoài đường", "0deg 88deg 30m", "0m 3m 0m", "50deg"],
+              ["Nhà bảo vệ", "150deg 86deg 18m", "-9m 2m -4m", "55deg"], ["Bồn nước", "170deg 70deg 14m", "4.3m 0.5m -22.9m", "50deg"],
+              ["Tường bao", "200deg 30deg 320m", "10m 0m -100m"]]
+    },
+    all: {
+      title: "Toàn bộ đã dựng", src: "../export/campus_all.glb", size: "21,9 MB",
+      stats: [["Gồm", "8 toà, cổng + tường, bồn nước, tennis, khu thể thao"], ["Vị trí", "Theo mặt bằng B1"], ["Gốc toạ độ", "Tâm cổng chính"], ["File web", "GLB 21,9 MB"]],
+      swatches: [["#97a2ad", "TA1"], ["#e6d6ae", "TB2 kem"], ["#5b4b45", "TB2 đế nâu"], ["#e3d3a8", "HĐ kem"], ["#6f7377", "HĐ khung xám"], ["#9e3b32", "Nhà ăn mái đỏ"], ["#6e6a64", "TA3 lam"], ["#ecd77a", "Canteen vàng"]],
+      tips: "Bấm \u201cTrên cao\u201d để xem bố cục cả khuôn viên đã dựng; \u201cTrước cổng nhìn vào\u201d để xem từ cổng chính.",
+      views: [["Toàn cảnh", "200deg 65deg 300m", "auto auto auto"], ["Trước cổng nhìn vào", "0deg 98deg 45m", "4.3m 8m -30m", "65deg"],
+              ["Từ sân nhìn ra cổng", "180deg 96deg 40m", "4.3m 6m 0m", "65deg"], ["Trên cao", "20deg 25deg 320m", "auto auto auto"]]
+    }
+  };
+  const mv = document.getElementById("mv");
+  const viewsEl = document.getElementById("views");
+  const loading = document.getElementById("loading");
+
+  function setView(btn) {
+    viewsEl.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", String(x === btn)));
+    mv.cameraTarget = btn.dataset.target;
+    mv.cameraOrbit = btn.dataset.orbit;
+    mv.fieldOfView = btn.dataset.fov || "35deg";
+  }
+
+  function show(key) {
+    const m = MODELS[key];
+    document.querySelectorAll("#models button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.model === key)));
+    document.getElementById("ttl").firstChild.nodeValue = m.title + " ";
+    document.getElementById("stats").innerHTML = m.stats.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("");
+    document.getElementById("swatches").innerHTML = m.swatches.map(([c, t]) => `<span class="sw"><i style="background:${c}"></i>${t}</span>`).join("");
+    document.getElementById("tips").textContent = m.tips;
+    viewsEl.innerHTML = "";
+    m.views.forEach(([name, orbit, target, fov], i) => {
+      const b = document.createElement("button");
+      b.type = "button"; b.textContent = name;
+      b.dataset.orbit = orbit; b.dataset.target = target; if (fov) b.dataset.fov = fov;
+      b.setAttribute("aria-pressed", String(i === 0));
+      b.addEventListener("click", () => setView(b));
+      viewsEl.appendChild(b);
+    });
+    loading.hidden = false; loading.textContent = `Đang tải model (${m.size})…`;
+    mv.src = m.src;
+    const first = viewsEl.querySelector("button");
+    mv.cameraTarget = first.dataset.target; mv.cameraOrbit = first.dataset.orbit; mv.fieldOfView = "35deg";
+    mv.jumpCameraToGoal && mv.jumpCameraToGoal();
+  }
+  document.querySelectorAll("#models button").forEach(b => b.addEventListener("click", () => show(b.dataset.model)));
+
+  const exp = document.getElementById("exp"), expOut = document.getElementById("expOut");
+  exp.addEventListener("input", () => { mv.exposure = exp.value; expOut.textContent = Number(exp.value).toFixed(2); });
+  const sun = document.getElementById("sun"), sunOut = document.getElementById("sunOut");
+  sun.addEventListener("input", () => { mv.shadowIntensity = sun.value; sunOut.textContent = Number(sun.value).toFixed(1); });
+  const rot = document.getElementById("rot");
+  rot.addEventListener("click", () => {
+    const on = rot.getAttribute("aria-pressed") !== "true";
+    rot.setAttribute("aria-pressed", String(on)); mv.autoRotate = on;
+  });
+  const env = document.getElementById("env");
+  env.addEventListener("click", () => {
+    const on = env.getAttribute("aria-pressed") !== "true";
+    env.setAttribute("aria-pressed", String(on)); mv.environmentImage = on ? "legacy" : "neutral";
+  });
+  mv.addEventListener("load", () => { loading.hidden = true; });
+  mv.addEventListener("error", () => { loading.hidden = false; loading.textContent = "Không tải được model. Thử tải lại trang."; });
+  show("ta1");
+})();
+</script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 """
-Build the KMA (Học viện Kỹ thuật Mật mã) front gate + front wall for a Unity 3rd-person game.
+Build the KMA (Học viện Kỹ thuật Mật mã) front gate, guardhouse, vehicle barriers and campus boundary wall for a Unity 3rd-person game.
 
 Run inside Blender:  exec(open("<this file>").read())
 Units: 1 Blender unit = 1 m. Outside (street) is -Y, campus is +Y, Z up.
@@ -31,7 +31,12 @@ P = dict(
     wall_l=12.0,    # wall length left of the guardhouse
     step=3.6,       # wall post spacing
     gh=2.3,         # gate leaf height
+    gx_ext=3.5,     # guardhouse extension into the campus (flat roof, photo 9)
+    gx_h=4.3,       # top of the guardhouse extension parapet
 )
+# campus boundary wall (campus plan coords, gate centre = origin), from the east side of the gate round to the guardhouse
+WALL_PATH = [(18.0, None), (18.0, -20.6), (80.9, -20.6), (80.9, 227.1), (-12.0, 227.1), (-12.0, 148.6),
+             (-65.8, 148.6), (-65.8, 14.6), (None, 14.6)]
 p, ph, D, FT = P["p"], P["ph"], P["depth"], P["ft"]
 W = 4 * p + P["oc"] + 2 * P["os"]
 YF, YB = -D / 2, D / 2
@@ -75,6 +80,12 @@ M = {
     "red": mat("KMA_SignRed", "#B3221E", 0.6),
     "door": mat("KMA_DoorMetal", "#5F655F", 0.5, 0.4),
     "ground": mat("KMA_Concrete", "#8E8C86", 0.95),
+    "steel": mat("KMA_Steel", "#8A8D8F", 0.4, 0.8),
+    "boom": mat("KMA_BoomRed", "#C8262A", 0.5),
+    "yellow": mat("KMA_Yellow", "#E8C21E", 0.6),
+    "black": mat("KMA_Black", "#1E1E1E", 0.7),
+    "ac": mat("KMA_AC", "#F2F2F0", 0.6),
+    "cabinet": mat("KMA_Cabinet", "#3A3D40", 0.5, 0.4),
 }
 
 
@@ -426,7 +437,6 @@ def build_guardhouse():
     build_window((cx, YF, 0), (0, -1, 0), host=(body,))                  # street side
     build_window((XG0, 0.0, 0), (-1, 0, 0), host=(body,))                # left side
     build_window((XG1, 0.0, 0), (1, 0, 0), w=1.0, hr=1.0, sill=1.1, host=(body,))  # looks into the gate passage
-    build_door((XG0 + 1.2, YB, 0), (0, 1, 0), host=(body, plinth))       # campus side
     # CCTV camera on the street face
     Mx = face_matrix((XG1 - 0.35, YF, 0), (0, -1, 0))
     bm = bmesh.new()
@@ -585,21 +595,21 @@ def build_gates():
 
 
 # ---------------------------------------------------------------- front wall
-def build_wall(group, x0, x1, yc, skip_start_post):
+def build_wall(group, x0, x1, yc, skip_start_post, matrix=None):
     wt, wh = P["wt"], P["wh"]
     bm = bmesh.new()
     box_bm(bm, x0, x1, yc - wt / 2 - 0.03, yc + wt / 2 + 0.03, 0, 0.35)
-    obj("w_plinth", bm, M["cream_dark"], group, bevel=0.008)
+    obj("w_plinth", bm, M["cream_dark"], group, matrix=matrix, bevel=0 if matrix is not None else 0.008)
     bm = bmesh.new()
     box_bm(bm, x0, x1, yc - wt / 2, yc + wt / 2, 0.35, wh)
     box_bm(bm, x0, x1, yc - wt / 2 - 0.03, yc + wt / 2 + 0.03, wh - 0.55, wh - 0.47)
-    obj("w_body", bm, M["cream"], group)
+    obj("w_body", bm, M["cream"], group, matrix=matrix)
     bm = bmesh.new()
     box_bm(bm, x0, x1, yc - wt / 2 - 0.06, yc + wt / 2 + 0.06, wh, wh + 0.05)
-    obj("w_cap", bm, M["white"], group)
+    obj("w_cap", bm, M["white"], group, matrix=matrix)
     bm = bmesh.new()
     prism_x_bm(bm, x0, x1, yc, wt / 2 + 0.1, wh + 0.05, 0.16)
-    obj("w_coping", bm, M["tile"], group)
+    obj("w_coping", bm, M["tile"], group, matrix=matrix)
     # posts
     xs = []
     lo, hi = min(x0, x1), max(x0, x1)
@@ -616,10 +626,110 @@ def build_wall(group, x0, x1, yc, skip_start_post):
         box_bm(bmP, x - hw, x + hw, yc - hd, yc + hd, 0.42, wh + 0.2)
         box_bm(bmC, x - hw - 0.05, x + hw + 0.05, yc - hd - 0.05, yc + hd + 0.05, wh + 0.2, wh + 0.27)
         pyramid_bm(bmT, x, yc, wh + 0.27, hw + 0.08, hd + 0.08, 0.2)
-    obj("w_post_base", bmB, M["cream_dark"], group, bevel=0.01)
-    obj("w_post", bmP, M["cream"], group, bevel=0.012)
-    obj("w_post_cap", bmC, M["white"], group, bevel=0.008)
-    obj("w_post_roof", bmT, M["tile"], group)
+    obj("w_post_base", bmB, M["cream_dark"], group, matrix=matrix, bevel=0 if matrix is not None else 0.01)
+    obj("w_post", bmP, M["cream"], group, matrix=matrix, bevel=0 if matrix is not None else 0.012)
+    obj("w_post_cap", bmC, M["white"], group, matrix=matrix, bevel=0 if matrix is not None else 0.008)
+    obj("w_post_roof", bmT, M["tile"], group, matrix=matrix)
+
+
+
+
+def build_wall_path(group, pts):
+    """Boundary wall along a polyline: each straight run is built along local X and rotated into place."""
+    for i in range(len(pts) - 1):
+        a, b = Vector((*pts[i], 0)), Vector((*pts[i + 1], 0))
+        d = b - a
+        mx = Matrix.Translation(a) @ Matrix.Rotation(math.atan2(d.y, d.x), 4, "Z")
+        build_wall(group, 0.0, d.length, 0.0, i > 0, matrix=mx)
+
+
+# ---------------------------------------------------------------- guardhouse extension (flat-roofed block into the campus, photo 9)
+def rect_window(origin, normal, w, h, sill, group):
+    Mx = face_matrix(origin, normal)
+    bm = bmesh.new()
+    box_bm(bm, -w / 2, w / 2, -0.02, 0.02, sill, sill + h)
+    obj("gx_glass", bm, M["glass"], group, matrix=Mx)
+    bm = bmesh.new()
+    t = 0.07
+    for x0, x1, z0, z1 in ((-w / 2 - t, w / 2 + t, sill - t, sill), (-w / 2 - t, w / 2 + t, sill + h, sill + h + t),
+                           (-w / 2 - t, -w / 2, sill, sill + h), (w / 2, w / 2 + t, sill, sill + h), (-0.025, 0.025, sill, sill + h)):
+        box_bm(bm, x0, x1, 0.0, 0.08, z0, z1)
+    obj("gx_frame", bm, M["iron"], group, matrix=Mx)
+    bm = bmesh.new(); box_bm(bm, -w / 2 - 0.12, w / 2 + 0.12, 0.0, 0.12, sill - 0.14, sill - t)
+    obj("gx_sill", bm, M["white"], group, matrix=Mx)
+
+
+def build_guardhouse_ext():
+    g = "Guardhouse"
+    y0, y1 = YB, YB + P["gx_ext"]
+    zc, zt = 3.0, P["gx_h"]
+    bm = bmesh.new(); box_bm(bm, XG0 - 0.05, XG1 + 0.05, y0, y1 + 0.05, 0, 0.45)
+    obj("gx_plinth", bm, M["cream_dark"], g, bevel=0.01)
+    bm = bmesh.new(); box_bm(bm, XG0, XG1, y0, y1, 0.45, zc)
+    obj("gx_body", bm, M["cream"], g)
+    bm = bmesh.new(); box_bm(bm, XG0 - 0.05, XG1 + 0.05, y0, y1 + 0.05, zc, zc + 0.1)
+    obj("gx_band", bm, M["cream_dark"], g)
+    bm = bmesh.new(); box_bm(bm, XG0, XG1, y0, y1, zc + 0.1, zt)
+    box_bm(bm, XG0 - 0.04, XG1 + 0.04, y0, y1 + 0.04, zt, zt + 0.06)
+    obj("gx_upper", bm, M["white"], g)
+    # east face (towards the gate lane): two doors, one window, glass canopy on steel brackets
+    for yc in (y0 + 0.75, y0 + 2.0):
+        Mx = face_matrix((XG1, yc, 0), (1, 0, 0))
+        bm = bmesh.new(); box_bm(bm, -0.45, 0.45, 0.0, 0.04, 0.45, 2.55)
+        obj("gx_door", bm, M["black"], g, matrix=Mx)
+        bm = bmesh.new(); box_bm(bm, -0.3, 0.3, 0.04, 0.05, 1.3, 2.4)
+        obj("gx_door_glass", bm, M["glass"], g, matrix=Mx)
+        bm = bmesh.new(); box_bm(bm, -0.55, 0.55, 0.0, 0.06, 2.55, 2.65)
+        obj("gx_door_trim", bm, M["white"], g, matrix=Mx)
+    rect_window((XG1, y0 + 3.0, 0), (1, 0, 0), 0.7, 1.2, 1.1, g)
+    bm = bmesh.new()
+    box_bm(bm, XG1, XG1 + 1.1, y0 - 0.2, y1 + 0.2, zc + 0.35, zc + 0.39)
+    obj("gx_canopy", bm, M["glass"], g)
+    bm = bmesh.new()
+    for yy in (y0 - 0.1, y0 + 1.2, y0 + 2.4, y1 + 0.1):
+        box_bm(bm, XG1, XG1 + 1.1, yy - 0.03, yy + 0.03, zc + 0.39, zc + 0.45)
+        tube_bm(bm, (XG1, yy, zc + 0.95), (XG1 + 1.05, yy, zc + 0.42), 0.015, 6)
+    obj("gx_canopy_frame", bm, M["steel"], g)
+    # north face: one window, two split-type AC units on the white band
+    rect_window(((XG0 + XG1) / 2 + 0.6, y1, 0), (0, 1, 0), 1.0, 1.3, 1.0, g)
+    bm = bmesh.new()
+    for k, zz in enumerate((zc + 0.25, zc - 0.55)):
+        box_bm(bm, XG1 - 1.3, XG1 - 0.45, y1, y1 + 0.3, zz, zz + 0.55)
+    obj("gx_ac", bm, M["ac"], g, bevel=0.01)
+    # CCTV on the north-east corner
+    bm = bmesh.new(); box_bm(bm, XG1 - 0.1, XG1 + 0.25, y1 - 0.1, y1 + 0.05, 2.7, 2.85)
+    obj("gx_cctv", bm, M["white"], g, bevel=0.01)
+
+
+# ---------------------------------------------------------------- vehicle barriers, cameras, speed bump (inside the centre opening)
+def build_barriers():
+    g = "Barriers"
+    x0, x1, _ = OPENINGS[1]
+    yb = YB + 1.2
+    bm = bmesh.new(); bmb = bmesh.new(); bmw = bmesh.new(); bmc = bmesh.new()
+    for side, xc in ((-1, x0 + 0.35), (1, x1 - 0.35)):
+        box_bm(bm, xc - 0.17, xc + 0.17, yb - 0.15 + side * 0.4, yb + 0.15 + side * 0.4, 0, 1.0)  # cabinet
+        y = yb + side * 0.4
+        L = (x1 - x0) / 2 - 0.25                                                                  # each boom closes half the lane
+        n = 6
+        for k in range(n):
+            xa = xc - side * (0.17 + L * k / n); xb = xc - side * (0.17 + L * (k + 1) / n)
+            box_bm(bmb if k % 2 == 0 else bmw, min(xa, xb), max(xa, xb), y - 0.03, y + 0.03, 0.88, 0.95)
+        # camera pole + head facing the lane
+        px = xc + side * 0.55
+        tube_bm(bmc, (px, y, 0), (px, y, 2.0), 0.04, 8)
+        box_bm(bmc, px - 0.08, px + 0.08, y - side * 0.3, y, 1.9, 2.05)
+    obj("barrier_cabinet", bm, M["cabinet"], g, bevel=0.01)
+    obj("barrier_boom_red", bmb, M["boom"], g)
+    obj("barrier_boom_white", bmw, M["white"], g)
+    obj("barrier_camera", bmc, M["steel"], g)
+    bmY, bmK = bmesh.new(), bmesh.new()
+    xa, xb = PILLARS[0] + p, PILLARS[-1]                                                          # speed bump across all openings
+    n = int((xb - xa) / 0.5)
+    for k in range(n):
+        box_bm(bmY if k % 2 == 0 else bmK, xa + k * 0.5, xa + (k + 1) * 0.5, YB + 2.6, YB + 2.95, 0, 0.05)
+    obj("speed_bump_yellow", bmY, M["yellow"], g)
+    obj("speed_bump_black", bmK, M["black"], g)
 
 
 # ---------------------------------------------------------------- run
@@ -628,11 +738,13 @@ build_guardhouse()
 build_roof()
 build_signage()
 gates = build_gates()
-build_wall("Wall_Right", W / 2, W / 2 + P["wall_r"], YFC, True)
-build_wall("Wall_Left", XG0, XG0 - P["wall_l"], YFC, True)
+build_guardhouse_ext()
+build_barriers()
+WALL_PTS = [(W / 2, YFC)] + [(x if x is not None else XG0, y if y is not None else YFC) for x, y in WALL_PATH] + [(XG0, YB + P["gx_ext"])]
+build_wall_path("Wall", WALL_PTS)
 
 result = {}
-for g in ("Structure", "Guardhouse", "Roof", "Signage", "Wall_Right", "Wall_Left"):
+for g in ("Structure", "Guardhouse", "Roof", "Signage", "Barriers", "Wall"):
     result[g] = join("KMA_" + g, GROUPS[g])
 
 root = bpy.data.objects.get("KMA_Gate_Root")

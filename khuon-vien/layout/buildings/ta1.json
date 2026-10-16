@@ -1,0 +1,164 @@
+{
+ "_note": "Thông số TA1 cho bản vẽ mặt đứng (B2) và model 3D (B4). Đơn vị mét. Toạ độ u trên mỗi mặt tính từ mép TRÁI khi đứng ngoài nhìn vào mặt đó. z tính từ mặt sân.",
+ "id": "ta1",
+ "name": "TA1",
+ "footprint": [
+  34.8,
+  28.0
+ ],
+ "floors": 10,
+ "plinth_h": 0.6,
+ "ground_h": 4.5,
+ "floor_h": 3.6,
+ "parapet_h": 1.2,
+ "colors": {
+  "fin": "#b4bdc6",
+  "slab": "#a3acb6",
+  "louver": "#6b737b",
+  "window": "#27303a",
+  "glass": "#3b4b57",
+  "wall_white": "#97a2ad",
+  "wall_white_shade": "#828d98",
+  "opening": "#4f565c",
+  "steps": "#8b8f92",
+  "rail": "#c7ccd1",
+  "sign_blue": "#2b5fa8",
+  "tile_red": "#9b3a2c",
+  "board": "#eeeeea",
+  "brick": "#b8644c",
+  "wall_main": "#97a2ad"
+ },
+ "faces": {
+  "north": {
+   "photo": "reference/ta1/ta1_mat_sanh_chinh.png",
+   "title": "Mặt sảnh chính (hướng ra sân trong)",
+   "width": 34.8,
+   "bays": 13,
+   "fin_w": 0.4,
+   "fin_depth": 0.5,
+   "left_zone_bays": 4,
+   "left_zone_floors": 3,
+   "grid_start_floor": 3,
+   "entrance": {
+    "u0": 14.0,
+    "u1": 31.5,
+    "door_groups": [
+     [
+      14.5,
+      22.0
+     ],
+     [
+      23.5,
+      31.0
+     ]
+    ],
+    "door_h": 3.3
+   },
+   "canopy": {
+    "u0": 13.0,
+    "u1": 33.0,
+    "z": 4.4,
+    "depth": 3.0
+   },
+   "steps": {
+    "u0": 13.0,
+    "u1": 33.0,
+    "risers": 4
+   },
+   "ramp": {
+    "u0": 0.5,
+    "u1": 13.0,
+    "rail_h": 1.0
+   }
+  },
+  "east": {
+   "photo": "reference/ta1/ta1_mat_giap_cong.png",
+   "title": "Mặt giáp cổng (hướng ra bồn nước)",
+   "width": 28.0,
+   "panel_joints_u": [
+    9.5,
+    19.0
+   ],
+   "core": {
+    "u0": 8.0,
+    "u1": 13.0,
+    "from_floor": 3,
+    "depth": 1.2,
+    "top_extra": 1.0,
+    "parapet_h": 1.1
+   },
+   "band_floor2": {
+    "u0": 0.0,
+    "u1": 14.5,
+    "depth": 1.5,
+    "parapet_h": 1.9,
+    "slots": 9
+   },
+   "entrance": {
+    "glass": [
+     9.2,
+     11.4
+    ],
+    "door": [
+     11.8,
+     12.8
+    ],
+    "h": 2.7
+   },
+   "steps": {
+    "u0": 7.5,
+    "u1": 15.0,
+    "risers": 4
+   },
+   "ext_stair": {
+    "u_bottom": 6.5,
+    "u_top": 0.0,
+    "width": 1.4,
+    "wall_h": 1.0
+   },
+   "sign": {
+    "text": "TA1",
+    "u": 18.5,
+    "z": 11.0,
+    "w": 1.8,
+    "h": 0.9
+   },
+   "notice_board": {
+    "u0": 16.0,
+    "u1": 26.0,
+    "z0": 0.5,
+    "z1": 2.6,
+    "roof_h": 0.35
+   },
+   "brick_strip": {
+    "u0": 14.5,
+    "u1": 28.0,
+    "depth": 2.0
+   }
+  },
+  "west": {
+   "title": "Mặt Tây (giáp TA2)",
+   "based_on": "east",
+   "mirror": true,
+   "_rule": "Như mặt giáp cổng (đối xứng), bỏ cầu thang ngoài, ban công lõi và ban công tầng 2 thay bằng cửa sổ; không biển TA1, không bảng tin",
+   "window_h": 1.6,
+   "window_sill": 0.9
+  },
+  "south": {
+   "title": "Mặt Nam (giáp Nhà xe)",
+   "based_on": "north",
+   "_rule": "Tường phẳng, cửa sổ đặt theo 13 ô của mặt sảnh chính, không cửa ra vào",
+   "window_w": 1.5,
+   "window_h": 1.6,
+   "window_sill": 0.9
+  }
+ },
+ "open_questions": [],
+ "decisions": [
+  "10 tầng (đã xác nhận)",
+  "Mặt Tây và mặt Nam theo mô tả của người dùng",
+  "Cột giàn thép đỏ trắng là hạng mục riêng, làm sau",
+  "Mặt Tây giữ lối vào phụ dưới lõi",
+  "Cả 4 mặt màu xanh xám (người dùng chốt lại), có texture"
+ ]
+}
