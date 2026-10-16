@@ -1,0 +1,119 @@
+{
+ "_note": "Cụm TA2 (nhà dài, dải kính) + TA3 (bọc lam ngang) nối liền nhau dọc mép Tây sân. Đơn vị mét. z tính từ mặt sân. Toạ độ x, y theo campus_layout.json (TA3 kéo xuống y 83,4 cho liền với TA2).",
+ "id": "ta23",
+ "ta2": {
+  "rect": [
+   -60.6,
+   15.7,
+   -48.6,
+   83.4
+  ],
+  "floors": 5,
+  "levels": {
+   "plinth": 0.45,
+   "ground_h": 4.2,
+   "typical_h": 3.6
+  },
+  "parapet": 1.0,
+  "spandrel": 1.1,
+  "end_panel": 2.0,
+  "pier_step": 3.6,
+  "slogan": {
+   "text": "DẠY TỐT - HỌC TỐT",
+   "floor": 4,
+   "u_center": 30.0,
+   "h": 0.6
+  },
+  "roof_box": {
+   "rect": [
+    -57.0,
+    40.0,
+    -52.0,
+    46.0
+   ],
+   "h": 2.8
+  }
+ },
+ "ta3": {
+  "rect": [
+   -57.1,
+   83.4,
+   -44.6,
+   108.6
+  ],
+  "floors": 7,
+  "levels": {
+   "ground_h": 4.0,
+   "typical_h": 3.3
+  },
+  "parapet": 1.0,
+  "louver": {
+   "pitch": 0.38,
+   "slat": 0.16,
+   "offset": 0.6,
+   "post_step": 4.2
+  },
+  "windows_per_bay": 1,
+  "sign": {
+   "text": "TA3",
+   "u_from_south": 17.5,
+   "floor": 2,
+   "w": 1.0,
+   "h": 0.55
+  },
+  "roof_box": {
+   "rect": [
+    -54.0,
+    92.0,
+    -47.5,
+    101.0
+   ],
+   "h": 3.0
+  }
+ },
+ "colors": {
+  "white": "#e9ebec",
+  "silver": "#c9ced2",
+  "glass": "#5f8796",
+  "glass_dark": "#2f3d45",
+  "frame": "#3a3f44",
+  "pilaster": "#a79a96",
+  "gold": "#c8a14a",
+  "louver": "#6e6a64",
+  "louver_dark": "#4f4b46",
+  "ta3_wall": "#d9d6cf",
+  "window_dark": "#2a2d30",
+  "shutter": "#c4c6c6",
+  "roof_tile": "#9a5a48",
+  "roof_flat": "#b4b6b4",
+  "sign_blue": "#2b5fa8"
+ },
+ "faces": {
+  "east": {
+   "photos": [
+    "reference/ta2_ta3/ta2_mat_dong_san_ghe.png",
+    "reference/ta2_ta3/ta3_mat_dong_tu_san_hd.png"
+   ],
+   "title": "Mặt Đông – hướng ra sân (TA2 dải kính, TA3 bọc lam)",
+   "_u": "u = y − 15,7 (trái = Nam)"
+  },
+  "west": {
+   "title": "Mặt Tây – phía tường rào (giả định)",
+   "_rule": "Tường trắng, mỗi tầng một hàng cửa sổ; TA3 lùi vào 3,5 m, không lam"
+  },
+  "north": {
+   "title": "Mặt Bắc – đầu TA3 (hướng HĐ, giả định)",
+   "_rule": "Lam ngang bọc tiếp từ mặt Đông"
+  },
+  "south": {
+   "title": "Mặt Nam – đầu TA2 (hướng TA1, giả định)",
+   "_rule": "Dải kính bọc tiếp từ mặt Đông; TA3 nhô cao phía sau"
+  }
+ },
+ "open_questions": [],
+ "decisions": [
+  "Làm theo giả định (người dùng): TA2 5 tầng mái bằng, TA3 7 tầng tầng 1 trống, phần bị che vẽ lặp, mặt Tây tường trơn",
+  "Mái TA2: mái bằng lát gạch đỏ nâu (theo màu trên vệ tinh)",
+  "Bản vẽ 4 mặt đã duyệt (người dùng)"
+ ]
+}

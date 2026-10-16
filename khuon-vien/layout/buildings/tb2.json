@@ -1,0 +1,195 @@
+{
+ "_note": "Thông số TB2 (Thư viện + KTX hệ quân) cho bản vẽ mặt đứng (B2) và model 3D (B4). Đơn vị mét. u tính từ mép TRÁI khi đứng ngoài nhìn vào mặt đó; z tính từ mặt sân.",
+ "id": "tb2",
+ "name": "TB2 – Thư viện / KTX hệ quân",
+ "footprint": [
+  48.6,
+  19.5
+ ],
+ "floors": 20,
+ "levels": {
+  "plinth": 0.75,
+  "ground_h": 4.6,
+  "second_h": 4.0,
+  "typical_h": 3.3,
+  "podium_floors": 2
+ },
+ "parapet": {
+  "grey": 1.2,
+  "cream": 1.8
+ },
+ "colors": {
+  "cream": "#e6d6ae",
+  "grey": "#a6aeb9",
+  "podium": "#5b4b45",
+  "podium_line": "#4a3d38",
+  "glass": "#2b333b",
+  "frame": "#eef0f0",
+  "grille": "#3d4248",
+  "ac": "#f2f2f0",
+  "gold": "#c8a14a",
+  "banner": "#b3261e",
+  "canopy": "#d6d9dc",
+  "steps": "#8b8f92",
+  "sign_blue": "#2b5fa8"
+ },
+ "faces": {
+  "north": {
+   "photo": "reference/tb2/tb2_mat_bac_sanh.png",
+   "title": "Mặt Bắc – sảnh chính thư viện (hướng ra sân trong)",
+   "width": 48.6,
+   "grey_ends": 7.0,
+   "window_columns": 6,
+   "window_col_w": 2.6,
+   "grey_window_cols": [
+    2.0,
+    4.6
+   ],
+   "entrance": {
+    "u0": 31.5,
+    "u1": 38.5,
+    "recess": 1.5,
+    "door_h": 3.3
+   },
+   "canopy": {
+    "u0": 30.0,
+    "u1": 40.0,
+    "z": 4.8,
+    "depth": 3.5,
+    "columns": false
+   },
+   "steps": {
+    "u0": 29.0,
+    "u1": 41.0,
+    "risers": 5
+   },
+   "sign": {
+    "text": "THƯ VIỆN HỌC VIỆN KỸ THUẬT MẬT MÃ",
+    "u0": 27.0,
+    "u1": 40.5,
+    "z": 5.9,
+    "h": 0.55
+   },
+   "f2_glazing": {
+    "u0": 31.0,
+    "u1": 39.0
+   },
+   "stair_glazing": {
+    "u0": 41.9,
+    "u1": 48.3,
+    "banner": false
+   },
+   "shopfront": {
+    "u0": 1.5,
+    "u1": 28.0,
+    "pier_every": 4.5
+   }
+  },
+  "west": {
+   "photo": "reference/tb2/tb2_mat_tay_bon_nuoc.png",
+   "title": "Mặt Tây – mặt chữ LIBRARY (hướng ra bồn nước, cổng)",
+   "width": 19.5,
+   "zones": [
+    [
+     "grey",
+     0.0,
+     4.5
+    ],
+    [
+     "cream",
+     4.5,
+     11.0
+    ],
+    [
+     "grey",
+     11.0,
+     19.5
+    ]
+   ],
+   "big_window_col": [
+    1.0,
+    3.5
+   ],
+   "small_window_cols": [
+    [
+     7.2,
+     8.4,
+     "ac"
+    ],
+    [
+     13.4,
+     14.8,
+     "frame"
+    ]
+   ],
+   "roof_frame": {
+    "u0": 12.5,
+    "u1": 18.0,
+    "h": 3.2
+   },
+   "stair_glazing": {
+    "u0": 0.0,
+    "u1": 4.5
+   },
+   "library_text": {
+    "text": "LIBRARY",
+    "u0": 7.0,
+    "u1": 12.5,
+    "z": 7.6,
+    "h": 0.6
+   },
+   "tb2_sign": {
+    "text": "TB2",
+    "u": 7.3,
+    "z": 6.3,
+    "w": 0.9,
+    "h": 0.55
+   },
+   "f2_windows": [
+    [
+     8.5,
+     10.2
+    ],
+    [
+     13.0,
+     14.6
+    ]
+   ],
+   "doors": [
+    [
+     5.6,
+     7.2,
+     "beige"
+    ],
+    [
+     9.8,
+     10.8,
+     "dark"
+    ],
+    [
+     12.8,
+     14.2,
+     "grille"
+    ]
+   ]
+  },
+  "south": {
+   "title": "Mặt Nam (hướng về cổng / TB1)",
+   "based_on": "north",
+   "_rule": "Tháp giống mặt Bắc; tầng 1 tường đặc ốp gạch nâu; tầng 2 đế có hàng cửa sổ"
+  },
+  "east": {
+   "title": "Mặt Đông",
+   "based_on": "west",
+   "mirror": true,
+   "_rule": "Như mặt Tây (đối xứng, cột cửa sổ lớn ở đầu Bắc), không cửa ra vào, không chữ LIBRARY, biển TB2, băng rôn"
+  }
+ },
+ "open_questions": [],
+ "decisions": [
+  "20 tầng (đã xác nhận)",
+  "Đế nâu 2 tầng trùng chân tháp",
+  "Mặt Nam và mặt Đông theo mô tả của người dùng",
+  "Bỏ băng rôn đỏ ở vách kính cầu thang (mặt Bắc, mặt Tây) và bỏ 2 cột đỡ mái đón sảnh (người dùng yêu cầu)"
+ ]
+}

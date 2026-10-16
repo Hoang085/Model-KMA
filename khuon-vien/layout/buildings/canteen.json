@@ -1,0 +1,57 @@
+{
+ "_note": "Canteen (3 tầng, vòm cuốn, mái ngói đỏ) + nhà kho cửa cuốn xanh ở đầu Đông + sân tennis phía Nam. Đơn vị mét. u tính từ mép TRÁI khi đứng ngoài nhìn vào mặt đó; z tính từ mặt sân.",
+ "id": "canteen",
+ "canteen": {
+  "rect": [47.1, 103.7, 71.4, 118.0],
+  "levels": {"plinth": 0.45, "f1_h": 3.9, "f2_h": 3.4, "f3_h": 3.3},
+  "roof": {"type": "hip", "overhang": 0.8, "rise": 3.5},
+  "arch_bays_south": 8,
+  "arch_bays_west": 4,
+  "arch": {"w": 1.8, "h": 2.9},
+  "band": [3.9, 4.5],
+  "balcony": {"depth": 1.2, "f2_parapet_h": 1.05, "f3_rail_h": 1.0},
+  "annex": {"rect": [71.4, 104.5, 78.0, 112.0], "h": 3.6, "shutters": 2}
+ },
+ "tennis": {
+  "rect": [37.1, 78.6, 68.0, 96.6],
+  "court": [23.77, 10.97],
+  "singles_w": 8.23,
+  "service_from_net": 6.4,
+  "curb_h": 0.3,
+  "fence_h": 4.0,
+  "post_step": 3.1,
+  "gate": {"side": "west", "v0": 1.0, "v1": 2.4},
+  "lights": [[37.1, 78.6], [68.0, 78.6], [37.1, 96.6], [68.0, 96.6]],
+  "light_h": 6.5,
+  "shade": {"rect": [53.0, 79.4, 57.5, 81.2], "h": 2.4},
+  "benches": [[47.0, 80.0], [49.0, 80.0], [58.5, 80.0], [60.5, 80.0]]
+ },
+ "colors": {
+  "yellow": "#ecd77a",
+  "yellow_dark": "#cdb85e",
+  "white_frame": "#f4f4f2",
+  "glass": "#4a5a62",
+  "stone_band": "#7d8084",
+  "plinth": "#6f7175",
+  "rail": "#2f6b45",
+  "roof_tile": "#a8483a",
+  "annex": "#6aa58a",
+  "annex_shutter": "#8fc2a8",
+  "court": "#3f7a62",
+  "surround": "#b04a40",
+  "line": "#f4f4f2",
+  "curb": "#7a3b32",
+  "fence": "#2c3a33",
+  "mesh": "#5d6b63",
+  "bench": "#2f67b3",
+  "shade": "#d9dcde"
+ },
+ "faces": {
+  "south": {"photo": "reference/canteen_tennis/canteen_nhin_bac.png", "title": "Mặt Nam Canteen – vòm cuốn, ban công (hướng sân tennis, bãi xe)"},
+  "west": {"photo": "reference/canteen_tennis/san_tennis_nhin_dong.png", "title": "Mặt Tây Canteen (hướng sân trong)"},
+  "north": {"title": "Mặt Bắc Canteen (giả định)", "_rule": "Tường vàng, mỗi tầng một hàng cửa sổ chữ nhật"},
+  "east": {"title": "Mặt Đông Canteen (giả định)", "_rule": "Tường vàng, cửa sổ; nhà kho cửa cuốn xanh 1 tầng ghép ở đầu Đông"}
+ },
+ "open_questions": [],
+ "decisions": []
+}
